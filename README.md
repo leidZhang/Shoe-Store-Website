@@ -71,7 +71,7 @@ Inventory (Specific inventory): `/api/catalog/inventory/:id`<br>
 <img src="/images/login.png" />
 
 ### Cart 
-<img src="/images/login.png" />
+<img src="/images/cart.png" />
 
 ### Item List 
 <img src="/images/catalog items.png" />
