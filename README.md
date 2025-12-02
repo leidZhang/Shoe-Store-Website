@@ -7,13 +7,8 @@ This is the course project for EECS4413, is an e-commerce website utilizing Reac
 - Product Information Management: This module is responsible for storing and managing various data of products, such as names, prices, classifications, descriptions, images, inventory, etc., as well as providing search, filtering, sorting, and other functions for products.
 - Order Management: This module is responsible for tracking and processing the user's order status, such as processing, delivered, canceled, etc.
 # Installation and Usage
-To install and run this project on your local machine, you need to have Python and Node.js on your computer, as well as the following packages:
-- Django: `pip install django`
-- Django Rest Framework: `pip install djangorestframework`
-- Djoser:  `pip install djoser`
-- Django filter: `pip install django-filter`
-- Corsheader: `pip install django-cors-headers`
-- mysqlclient: `pip install mysqlclient`<br>
+To install and run this project on your local machine, you need to have Python and Node.js on your computer.
+To install the other required packages, navigate to the project directory and then run `python3 -m pip install -r requirements.txt`
 
 Then, follow these steps:
 1. Clone this repository to your machine, you can use the following command:
