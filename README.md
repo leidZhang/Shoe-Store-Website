@@ -8,22 +8,22 @@ This is the course project for EECS4413, is an e-commerce website utilizing Reac
 - Order Management: This module is responsible for tracking and processing the user's order status, such as processing, delivered, canceled, etc.
 # Installation and Usage
 To install and run this project on your local machine, you need to have Python and Node.js on your computer.
-To install the other required packages, navigate to the project directory and then run `python3 -m pip install -r requirements.txt`
 
 Then, follow these steps:
 1. Clone this repository to your machine, you can use the following command:
 `git clone https://github.com/leidZhang/EECS4413Project.git`
-2. Go to ereact folder to start the frontend:
+2. Navigate to the project directory and then run `python3 -m pip install -r requirements.txt` to install the required python packages
+3. Go to ereact folder to start the frontend:
 ```
 cd ereact
 npm start
 ```
-3. Open another console, go to edjango folder to start the backend:
+4. Open another console, go to edjango folder to start the backend:
 ```
 cd edjango
 python manage.py runserver
 ```
-4. Once the frontend and the backend are running, you can enjoy this project.<br>
+5. Once the frontend and the backend are running, you can enjoy this project.<br>
 front-end url: `http://localhost:3000/`<br>
 back-end url: `http://localhost:8000/`<br>
 
