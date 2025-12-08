@@ -1,0 +1,68 @@
+.result-page-container {
+    margin: 10px;
+    display: flex;
+}
+
+.filter-container {
+    min-width: 300px;
+    text-align: left;
+    padding-left: 50px;
+    font-size: 18px;
+}
+
+.order-radio {
+    margin-right: 5px;
+}
+
+.result-container {
+    text-align: left;
+    margin-left: 10px;
+    width: 100vw;
+}
+
+.result-title {
+    margin-left: 10px;
+}
+
+.filter-tag {
+    font-weight: bold;
+}
+
+.filter-text {
+    margin-bottom: 0px;
+}
+
+.filter-input {
+    margin-right: 5px;
+}
+
+.filter-group {
+    margin-bottom: 5px;
+}
+
+#filter-submit-button {
+    margin-top: 5px;
+    margin-right: 5px;
+    background-color: black;
+}
+
+#filter-reset-button {
+    margin-top: 5px;
+    background-color: black;
+}
+
+#filter-button-container {
+    text-align: left;
+}
+
+#result-card {
+    display: flex;
+    justify-content: left;
+    flex-wrap: wrap;
+    margin-left: 0px;
+    margin-top: 30px;
+}
+
+#search-pagination {
+    margin-left: 30%;
+}

@@ -24,9 +24,9 @@ urlpatterns = [
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
     path(f'{settings.URL_PREFIX}/data-access/', include('data_access.urls')),
-    # path(f'{settings.URL_PREFIX}/catalog/', include('catalog.urls')),
+    path(f'{settings.URL_PREFIX}/catalog/', include('catalog.urls')),
     path(f'{settings.URL_PREFIX}/ordering/', include('ordering.urls')),
     path(f'{settings.URL_PREFIX}/shopping-cart/', include('shopping_cart.urls')),
-    # path(f'{settings.URL_PREFIX}/identity/', include('identity.urls')),
+    path(f'{settings.URL_PREFIX}/identity/', include('identity.urls')),
 ]
 

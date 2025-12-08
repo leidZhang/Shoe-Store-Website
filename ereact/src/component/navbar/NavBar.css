@@ -1,7 +1,50 @@
 .nav-bar-component {
     margin-left: 20px;
+    font-family: serif;
+    font-size: 200%;
+    font-style: bold;
+    font-style: italic; 
 }
 
 #order-link {
     margin-right: 20px;
+}
+
+#search-input[type=text]{
+    width: 30% !important;
+    background-color: rgba(189,187,182,0.7);   
+}
+
+#button-addon2{
+    font-family: serif;
+    font-size: 100%;
+    text-align: center;
+    font-style: italic;  
+    background-color: rgba(189,187,182,0.7);
+}
+
+#button-addon2:hover, #all:hover, #search-input:hover{
+    background-color: rgba(229,209,208,0.7);
+}
+
+#search-input{
+    background-color: rgba(189,187,182,0.7);
+    font-family: serif;
+    font-size: 100%;
+    text-align: left;
+    font-style: italic; 
+}
+#all{
+    background-color: rgba(189,187,182,0.7);
+    font-family: serif;
+    font-size: 100%;
+    text-align: left;
+    font-style: italic; 
+}
+
+#cart, #order-link, #overlay-trigger{
+    font-family: serif;
+    font-size: 100%;
+    text-align: center;
+    font-style: italic;   
 }

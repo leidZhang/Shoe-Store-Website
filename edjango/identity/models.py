@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, UserManager
 from django.contrib.auth import get_user_model
 
 
@@ -17,10 +17,20 @@ class Administrator(get_user_model()):
     objects = AdministratorManager()
 
 
-class CustomerManager(models.Manager):
+class CustomerManager(UserManager):
     def get_queryset(self):
         customer_group = Group.objects.get(name='Customer')
         return super().get_queryset().filter(groups=customer_group)
+
+
+class CustomerInfo(models.Model):
+    customer = models.OneToOneField('Customer', primary_key=True, on_delete=models.CASCADE)
+    phone_num = models.CharField(max_length=10, default="")
+    address_1 = models.CharField(max_length=255, default="")
+    address_2 = models.CharField(max_length=255, default="", blank=True)
+    city = models.CharField(max_length=255, default="")
+    province = models.CharField(max_length=2, default="")
+    postal_code = models.CharField(max_length=7, default="")
 
 
 class Customer(get_user_model()):

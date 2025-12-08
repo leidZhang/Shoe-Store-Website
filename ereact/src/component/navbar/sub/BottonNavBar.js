@@ -1,28 +1,41 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import axios from "axios";
+import {useNavigate} from "react-router-dom";
+
 
 const BottomNavBar = () => {
-    // will replace to the categories here
+    const navigate = useNavigate();
+    const [categories, setCategories] = useState(null);
+
+    useEffect(() =>{
+        axios.get(`/api/data-access/categories`).then(res => {
+            setCategories(res.data);
+        }).catch(error => {
+            console.error(error);
+        })
+    }, []);
+
+    const handleNavigate = (category) => {
+        navigate(`/search-result?category=${category}`);
+    }
+
     return (
-        <Navbar expand="lg" className="bg-body-tertiary">
+        <Navbar expand="lg" className="navbar navbar-light" style={{backgroundColor: 'rgba(131,151,136,0.7)'}}>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse>
                 <Nav className="me-auto">
-                    <Nav.Link className="nav-bar-component" href="#home">Home</Nav.Link>
-                    <Nav.Link href="#link">Link</Nav.Link>
-                    <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                        <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.2">
-                            Another action
-                        </NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                        <NavDropdown.Divider />
-                        <NavDropdown.Item href="#action/3.4">
-                            Separated link
-                        </NavDropdown.Item>
-                    </NavDropdown>
+                    {categories && categories.map(category => (
+                        <Nav.Link
+                            className="nav-bar-component"
+                            key={category['id']}
+                            onClick={() => handleNavigate(category['title'])}
+                        >
+                            {category['title']}
+                        </Nav.Link>
+                    ))}
                 </Nav>
             </Navbar.Collapse>
         </Navbar>

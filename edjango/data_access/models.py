@@ -11,7 +11,20 @@ class Category(models.Model):
 
 class Brand(models.Model):
     title = models.CharField(max_length=255)
-    image = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.title
+
+
+class Color(models.Model):
+    title = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.title
+
+
+class Size(models.Model):
+    title = models.CharField(max_length=255)
 
     def __str__(self):
         return self.title
@@ -24,9 +37,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
     image = models.CharField(max_length=255)  # image url for the product
-    inventory = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title
-
 

@@ -2,21 +2,26 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 
-from data_access.serializers import ProductSerializer
+from catalog.models import Inventory
+from catalog.serializers import InventorySerializer
 from .models import Order, OrderItem
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
-    # product = ProductSerializer(many=False, read_only=True)
+    inventory = InventorySerializer(many=False, read_only=True)
 
     class Meta:
         model = OrderItem
-        fields = ['product', 'quantity']
+        fields = ['inventory', 'quantity']
 
 
 class OrderSerializer(serializers.ModelSerializer):
-    products = OrderItemSerializer(many=True, read_only=True, source='product_set')
+    inventories = OrderItemSerializer(many=True, read_only=True, source='inventory_set')
 
     class Meta:
         model = Order
-        fields = ['id', 'customer_id', 'products', 'total', 'date']
+        fields = ['id', 'customer_id', 'inventories', 'status',
+                  'total', 'date', 'first_name', 'last_name',
+                  'phone_num', 'address_1', 'address_2', 'city',
+                  'province', 'postal_code', 'payment_method'
+                  ]

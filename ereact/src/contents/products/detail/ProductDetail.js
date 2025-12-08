@@ -7,61 +7,141 @@ import Button from "react-bootstrap/Button";
 const ProductDetail = () => { // prototype detail page
     const navigate = useNavigate();
     const { id } = useParams();
-    const [description, setDescription] = useState('');
-    const [price, setPrice] = useState('');
-    const [title, setTitle] = useState('');
-    const [brand, setBrand] = useState('');
-    const [category, setCategory] = useState('');
+
+    const [product, setProduct] = useState(null);
     const [quantity, setQuantity] = useState(1);
+    const [colors, setColors] = useState(null);
+    const [sizes, setSizes] = useState(null);
+    const [inventories, setInventories] = useState([]);
+    const [selectedColor, setSelectedColor] = useState('');
+    const [selectedSize, setSelectedSize] = useState('');
 
     useEffect(() => {
+        handleProductInfo();
+        handleOptions();
+    }, []);
+
+    const handleUniqueValues = (data, key) => {
+        let res = new Set();
+        for (let i in data) {
+            if (!res.has(data[i][key]["title"])) {
+                res.add(data[i][key]["title"]);
+            }
+        }
+        return res
+    };
+
+    const handleOptions = () => {
+        axios.get(`api/catalog/inventory/${id}`).then(res => {
+            const data = res.data;
+
+            setInventories(handleInventories(data));
+            setColors(handleUniqueValues(data, "color"));
+            setSizes(handleUniqueValues(data, "size"));
+        }).catch(error => {
+            console.log(error);
+        });
+    };
+
+    const handleInventories = (data) => {
+        let res = {};
+        for (let i in data) {
+            const color = data[i]["color"]["title"];
+            const size = data[i]["size"]["title"];
+
+            const key = color + "-" + size;
+            res[key] = data[i];
+        }
+
+        return res;
+    };
+
+    const getInventoryStock = (color, size) => {
+        const key = color + "-" + size;
+        return inventories[key]['stock'];
+    };
+
+    const handleProductInfo = () => {
         axios.get(`api/data-access/products/${id}`).then(res => {
             const data = res.data;
             console.log(data);
 
-            setTitle(data['title']);
-            setPrice(data['price']);
-            setDescription(data['description']);
-            setCategory(data['category']);
-            setBrand(data['brand']);
+            setProduct(data);
         }).catch(error => {
             console.log(error);
             navigate('/404');
-        })
-    });
+        });
+    };
 
-    const handleAddToCart = (event) => {
-        console.log("button clicked");
+    const handleAvailableSize = (color) => {
+        const newSizes = [];
 
-        const data = {
-            product_id: id,
-            quantity: quantity,
+        for (let key in inventories) {
+            const keyInfo = key.split("-");
+            if (color === keyInfo[0]) {
+                newSizes.push(keyInfo[1]);
+            }
         }
 
-        axios.post(`http://localhost:8000/api/shopping-cart/cart/products`, data).then(res => {
-            console.log('Add to Order!');
-        }).catch(error => {
-            console.log(error);
-        })
+        setSizes(newSizes);
+        setSelectedColor(color);
+    }
+
+    const handleAddToCart = () => {
+        if (selectedColor && selectedSize) {
+            const key = selectedColor + '-' + selectedSize;
+            const inventory = inventories[key];
+
+            const data = { // implementing
+                inventory_id: inventory['id'],
+                quantity: quantity,
+            }
+
+            axios.post(`http://localhost:8000/api/shopping-cart/cart/items`, data).then(res => {
+                console.log(res.data);
+                alert("Add to cart!");
+            }).catch(error => {
+                console.log(error);
+            });
+        } else {
+            alert("Please select a color and a size");
+        }
     }
 
     return (
-        <div id="product-container" >
-            <p>This is the page for { id } product's details</p>
-            <p>Title: { title } </p>
-            <p>Description: { description } </p>
-            <p>Price: { price }</p>
-            <p>Category: { category }</p>
-            <p>Brand: { brand }</p>
-            <p>QTY</p>
-            <input type="text" value={quantity} onChange={(e) => setQuantity(e.target.value)}/>
+        <div className="product-detail-container">
+            <p id= "img"><img src={ product?.image } className="product-detail-img" alt={product?.title}/></p>
+            {/*  <p id="product-card-title">This is the page for { product?.id } product's details</p>*/}
+            <p id="product-card-title">{ product?.title } </p>
+            <p id="product-card-content">{ product?.description } </p>
+            <p id="product-card-price">Price: ${ product?.price }</p>
+            <p id="product-card-category">Category: { product?.category }</p>
+            <p id="product-card-brand">Brand: { product?.brand.title }</p>
+            {colors && Array.from(colors).map(color => (
+                <p id="product-card-color" key={color}><input type="radio" name="color" value={color} onChange={(e) => handleAvailableSize(e.target.value)} />Color: {color}</p>
+            ))}
+            {selectedColor && sizes && Array.from(sizes).map(size => (
+                <p  id="product-card-size" key={size}>
+                    <input
+                        type="radio"
+                        name="size"
+                        value={size}
+                        onChange={(e) => setSelectedSize(e.target.value)}
+                        disabled={getInventoryStock(selectedColor, size) === 0}
+                    />
+                    Size: {size} Stock: {getInventoryStock(selectedColor, size)}
+                </p>
+            ))}
+            <p id="product-card-qty">QTY: 
+                <input id="qty-textbox" type="text" size="3" value={quantity} onChange={(e) => setQuantity(e.target.value)}/>
+            </p>
             <div id="button-container">
-                <Button className="form-button" variant="primary" onClick={handleAddToCart}>
+                <Button id ="add-to-cart-button" className="form-button bg-dark" variant="primary" onClick={handleAddToCart}>
                     Add to Cart
                 </Button>
             </div>
         </div>
-    )
+    );
 }
 
 export default ProductDetail;

@@ -1,0 +1,25 @@
+#body{
+    background-color: rgba(249,241,234,1);
+
+}
+.not-fount{
+    margin: 5% 25% 10% 25%;
+}
+
+.not-fount-title  {
+    font-family: serif;
+    font-weight: bold;
+    font-size: xxx-large;
+    text-align: center;
+}
+
+.not-found-text {
+    text-align: center;
+    font-size: large;
+}
+.not-fount-text-break {
+    text-align: center;
+    font-size: large;
+    margin-top: 5%;
+    font-style: italic;
+}   

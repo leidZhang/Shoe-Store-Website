@@ -1,0 +1,41 @@
+#cart-title {
+    margin-top: 10px;
+    text-align: left;
+    min-width: 800px;
+    margin-bottom: 0px;
+}
+
+.cart-card {
+    min-width: 800px;
+}
+
+#cart-accordion {
+    width: fit-content;
+    margin-top: 10px;
+}
+
+#cart-form-body {
+    padding: 0px;
+}
+
+.confirm-button {
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.checkout-card {
+    width: 800px;
+    text-align: left;
+}
+
+#checkout-form-row {
+    margin-top: 10px;
+}
+
+#payment-buttons {
+    margin-bottom: 15px;
+}
+
+#checkout-container {
+    overflow: auto;
+}

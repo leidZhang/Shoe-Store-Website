@@ -1,27 +1,27 @@
 from rest_framework import serializers
 
 from .models import Cart, CartItem
-from data_access.models import Product
-from data_access.serializers import ProductSerializer
+from catalog.models import Inventory
+from catalog.serializers import InventorySerializer
 
 
 class CartItemSerializer(serializers.ModelSerializer):
     # read only product, read via product detail
-    product = ProductSerializer(many=False, read_only=True)
+    inventory = InventorySerializer(many=False, read_only=True)
     # write only product_id, add via product id
-    product_id = serializers.PrimaryKeyRelatedField(queryset=Product.objects.all(), source='product', write_only=True)
+    inventory_id = serializers.PrimaryKeyRelatedField(queryset=Inventory.objects.all(), source='inventory', write_only=True)
     # read only id, identify the cartItem
     id = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = CartItem
-        fields = ['id', 'product_id', 'product', 'quantity']
+        fields = ['id', 'inventory_id', 'inventory', 'quantity']
 
 
 class CartSerializer(serializers.ModelSerializer):
-    products = CartItemSerializer(many=True, read_only=True, source='product_set')
+    inventories = CartItemSerializer(many=True, read_only=True, source='inventory_set')
 
     class Meta:
         model = Cart
-        fields = ['customer_id', 'products', 'total']
+        fields = ['customer_id', 'inventories', 'total']
 

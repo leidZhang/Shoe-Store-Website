@@ -1,8 +1,10 @@
 .register-card {
+    font-family: serif;
     text-align: left;
-    margin-top: 25vh;
-    width: 600px;
-    height: 600px;
+    margin: 10% 25% 10% 25%;
+    height: 100vh;
+    background-color: rgba(249,241,234,1);
+    align-self: center;
 }
 
 #register-button {
@@ -11,4 +13,8 @@
 
 #last-row {
     margin-bottom: 15px;
+}
+.form-title{
+    font-weight: bold;
+    text-align: center;
 }

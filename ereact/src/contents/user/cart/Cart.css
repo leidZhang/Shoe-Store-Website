@@ -1,0 +1,41 @@
+#body{
+    background-color: rgba(249,241,234,1);
+}
+
+#cart-card{
+    background-color: rgba(229,209,208,0.5);
+    margin: 15% 15% 15% 15%;
+    padding: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+    max-width: auto;
+    align-self: center;
+}
+
+.card-title{
+    font-family: serif;
+    font-size: 150%;
+    font-weight: bold;
+    text-align: left;
+    padding-left: 10%;
+}
+
+#cart-card-title {
+    margin-top: 8px;
+}
+
+#cart-button {
+    font-family: serif;
+    max-width: 300px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#cart-card {
+    margin-top: 5%;
+    margin-left: 10%;
+    margin-right:10%;
+    min-width: 800px;
+}

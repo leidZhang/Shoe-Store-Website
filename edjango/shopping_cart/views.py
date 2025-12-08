@@ -1,4 +1,5 @@
 from rest_framework import generics, status
+from rest_framework.response import Response
 from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
@@ -9,6 +10,7 @@ from .serializers import CartSerializer, CartItemSerializer
 class CartView(generics.ListCreateAPIView):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
+    pagination_class = None
 
     def get_queryset(self):
         user = self.request.user
@@ -27,24 +29,30 @@ class CartItemView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         # Set the cart field before saving the instance
         user = self.request.user  # cart_id is user_id
-        product_id = self.request.data.get('product_id')
+        inventory_id = self.request.data.get('inventory_id')
         quantity = self.request.data.get('quantity')
         cart = Cart.objects.get(customer_id=user.id)
 
         # Check if the item already exists in the cart
-        existing_item = CartItem.objects.filter(cart=user.id, product=product_id).first()
+        existing_item = CartItem.objects.filter(cart=user.id, inventory=inventory_id).first()
 
         if existing_item:
             # If the item exists, update the quantity
             existing_item.quantity += int(quantity)
             existing_item.save()
             serializer.instance = existing_item  # Set the serializer instance for response
+            cart_item_id = existing_item.id
         else:
             # If the item does not exist, create a new one
             serializer.save(cart_id=user.id)
+            cart_item_id = serializer.instance.id
 
         # update the total price
         cart.update_total()
+
+        # Return the response with the cart_item id
+        response_data = {'cart_item_id': cart_item_id}
+        return Response(response_data, status=status.HTTP_201_CREATED)
 
 
 class SingleCartItemView(generics.RetrieveUpdateDestroyAPIView):

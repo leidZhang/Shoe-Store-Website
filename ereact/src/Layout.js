@@ -5,7 +5,7 @@ import './Layout.css';
 
 const Layout = () => {
     return (
-        <div>
+        <div className="layout-container">
             <NavBar />
             <Outlet />
         </div>

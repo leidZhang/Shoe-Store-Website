@@ -1,0 +1,41 @@
+.order-item-img {
+    padding: 10px;
+    margin-top: 10px;
+    max-width: 120px;
+    max-height: 120px;
+    height: auto;
+}
+
+#order-item-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#order-item-title:hover {
+    cursor: pointer;
+}
+
+.order-item-text {
+    margin: 0px;
+}
+
+#order-item {
+    display: flex;
+    width: 800px;
+}
+
+.order-item-text-container {
+    margin-top: 10px;
+    text-align: left;
+}
+
+.order-item-qty {
+    max-height: 25px;
+    max-width: 50px;
+}
+
+#order-total-price {
+    text-align: left;
+    margin-left: 20px;
+    font-size: 20px;
+}

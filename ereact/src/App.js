@@ -5,7 +5,7 @@ import cookie from "react-cookies";
 import axios from "axios";
 import Route from "./router/Route";
 
-function App() {
+const App = () => {
   const element = useRoutes(Route);
 
   useLayoutEffect(() => { // load token
